@@ -141,6 +141,8 @@ class Session(models.Model):
                 rec.is_participant = rec.id in sess_ids
 
     def _search_is_participant(self, operator, value):
+        # NOTE: lal 06.11.2023: is_participant is a non-stored field. Thus it is not searchable.
+        #       The only way to make it searchable is by this method
         self.env.flush_all()
         query = """
             SELECT s.id
